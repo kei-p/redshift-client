@@ -55,7 +55,7 @@ module Redshift
     end
 
     def execute(sql)
-      cnct = Redshift::Connector.new
+      cnct = Redshift::Client.connector
       cnct.execute(sql)
       cnct.close
     end
