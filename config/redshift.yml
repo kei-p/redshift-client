@@ -1,0 +1,14 @@
+default: &default
+  adapter:  redshift
+  encoding: utf8
+  port:     5439
+  host:     <%= ENV['REDSHIFT_HOST'] %>
+  username: <%= ENV['REDSHIFT_USERNAME'] %>
+  password: <%= ENV['REDSHIFT_PASSWORD'] %>
+  pool: 3
+  timeout: 5000
+
+test:
+  <<: *default
+  database: <%= ENV['REDSHIFT_DBNAME'] %>
+
