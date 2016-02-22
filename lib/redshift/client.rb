@@ -13,4 +13,26 @@ module Redshift
   autoload :MigrationProxy, 'redshift/migration'
   autoload :Migration, 'redshift/migration'
   autoload :SchemaMigration, 'redshift/schema_migration'
+
+  module Client
+    class << self
+      def configuration=(host: '', port: 5432, database: '', username: '', password: '', **_opt)
+        @configuration = {
+          host: host,
+          port: port,
+          database: database,
+          username: username,
+          password: password
+        }
+      end
+
+      def configuration # rubocop:disable Style/TrivialAccessors
+        @configuration
+      end
+
+      def connector
+        Connector.new
+      end
+    end
+  end
 end

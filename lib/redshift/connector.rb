@@ -10,22 +10,8 @@ module Redshift
           password: password
         }
       else
-        self.configuration = Connector.default_configuration
+        self.configuration = Client.configuration
       end
-    end
-
-    def self.default_configuration=(host: '', port: 5432, database: '', username: '', password: '', **_opt)
-      @default_configuration = {
-        host: host,
-        port: port,
-        database: database,
-        username: username,
-        password: password
-      }
-    end
-
-    def self.default_configuration # rubocop:disable Style/TrivialAccessors
-      @default_configuration
     end
 
     def configuration=(host: '', port: 5432, database: '', username: '', password: '')
