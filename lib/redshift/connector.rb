@@ -45,27 +45,13 @@ module Redshift
     end
 
     def execute(sql)
-      config = configuration
-      @cnct = PG::Connection.open(
-        host: config[:host],
-        port: config[:port],
-        dbname: config[:database],
-        user: config[:username],
-        password: config[:password]
-      )
+      @cnct = PG::Connection.open(config)
 
       @cnct.exec(sql)
     end
 
     def async_execute(sql)
-      config = configuration
-      @cnct = PG::Connection.open(
-        host: config[:host],
-        port: config[:port],
-        dbname: config[:database],
-        user: config[:username],
-        password: config[:password]
-      )
+      @cnct = PG::Connection.open(config)
 
       Thread.new do
         @cnct.async_exec(sql) do |result|
@@ -77,6 +63,19 @@ module Redshift
 
     def close
       @cnct.close
+    end
+
+    private
+
+    def config
+      config = configuration
+      {
+        host: config[:host],
+        port: config[:port],
+        dbname: config[:database],
+        user: config[:username],
+        password: config[:password]
+      }
     end
   end
 end
