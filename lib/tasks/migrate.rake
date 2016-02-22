@@ -2,7 +2,7 @@ require 'redshift/client'
 
 namespace :redshift do
   desc 'Migrate the database'
-  task :migrate do
+  task migrate: 'redshift:environment' do
     Redshift::Migrator.setup
     migrator = Redshift::Migrator.new
     migrator.migration_path = ['redshift/migrate']
@@ -11,7 +11,7 @@ namespace :redshift do
   end
   #
   desc 'Rolls the schema back to the previous version'
-  task :rollback do
+  task rollback: 'redshift:environment'do
     Redshift::Migrator.setup
     migrator = Redshift::Migrator.new
     migrator.migration_path = ['redshift/migrate']
